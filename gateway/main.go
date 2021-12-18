@@ -7,7 +7,7 @@ import (
 	_ "net/http/pprof"
 	"os"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	pb "github.com/sanoyo/mini-lens-go/proto"
 	"google.golang.org/grpc"
 )
@@ -28,11 +28,7 @@ func newGateway(ctx context.Context, opts ...runtime.ServeMuxOption) (http.Handl
 	mux := runtime.NewServeMux(opts...)
 	dialOpts := []grpc.DialOption{grpc.WithInsecure()}
 
-	conn, err := grpc.Dial(endpoint, dialOpts...)
-	if err != nil {
-		return nil, err
-	}
-	err = pb.RegisterHealthServiceHandler(ctx, mux, conn)
+	err := pb.RegisterHealthServiceHandlerFromEndpoint(ctx, mux, endpoint, dialOpts)
 	if err != nil {
 		return nil, err
 	}
