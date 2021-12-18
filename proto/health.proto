@@ -2,7 +2,8 @@ syntax = "proto3";
 
 import "google/api/annotations.proto";
 
-package gateway;
+package proto;
+option go_package = "github.com/sanoyo/mini-lens-go/proto";
 
 service HealthService {
   rpc GetStatus(Empty) returns (AliveResponse) {
