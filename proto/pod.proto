@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package proto;
+option go_package = "github.com/sanoyo/mini-lens-go/proto";
+
+service PodService {
+  rpc GetStatus(Empty) returns (PodResponse) {
+    option (google.api.http) = {
+      get: "/pod"
+    };
+  }
+}
+
+message Empty {}
+
+message PodResponse {
+  string name = 1;
+  bool status = 2;
+}
