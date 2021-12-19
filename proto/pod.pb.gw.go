@@ -31,20 +31,20 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_PodService_GetStatus_0(ctx context.Context, marshaler runtime.Marshaler, client PodServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq Empty
+func request_PodService_GetPodStatus_0(ctx context.Context, marshaler runtime.Marshaler, client PodServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq PodEmpty
 	var metadata runtime.ServerMetadata
 
-	msg, err := client.GetStatus(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetPodStatus(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_PodService_GetStatus_0(ctx context.Context, marshaler runtime.Marshaler, server PodServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq Empty
+func local_request_PodService_GetPodStatus_0(ctx context.Context, marshaler runtime.Marshaler, server PodServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq PodEmpty
 	var metadata runtime.ServerMetadata
 
-	msg, err := server.GetStatus(ctx, &protoReq)
+	msg, err := server.GetPodStatus(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -55,18 +55,18 @@ func local_request_PodService_GetStatus_0(ctx context.Context, marshaler runtime
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterPodServiceHandlerFromEndpoint instead.
 func RegisterPodServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server PodServiceServer) error {
 
-	mux.Handle("GET", pattern_PodService_GetStatus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_PodService_GetPodStatus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.PodService/GetStatus", runtime.WithHTTPPathPattern("/pod"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.PodService/GetPodStatus", runtime.WithHTTPPathPattern("/pod"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_PodService_GetStatus_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_PodService_GetPodStatus_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -74,7 +74,7 @@ func RegisterPodServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 			return
 		}
 
-		forward_PodService_GetStatus_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_PodService_GetPodStatus_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -119,23 +119,23 @@ func RegisterPodServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn 
 // "PodServiceClient" to call the correct interceptors.
 func RegisterPodServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client PodServiceClient) error {
 
-	mux.Handle("GET", pattern_PodService_GetStatus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_PodService_GetPodStatus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/proto.PodService/GetStatus", runtime.WithHTTPPathPattern("/pod"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/proto.PodService/GetPodStatus", runtime.WithHTTPPathPattern("/pod"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_PodService_GetStatus_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_PodService_GetPodStatus_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_PodService_GetStatus_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_PodService_GetPodStatus_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -143,9 +143,9 @@ func RegisterPodServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 }
 
 var (
-	pattern_PodService_GetStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"pod"}, ""))
+	pattern_PodService_GetPodStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"pod"}, ""))
 )
 
 var (
-	forward_PodService_GetStatus_0 = runtime.ForwardResponseMessage
+	forward_PodService_GetPodStatus_0 = runtime.ForwardResponseMessage
 )

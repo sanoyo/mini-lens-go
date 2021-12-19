@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PodServiceClient interface {
-	GetStatus(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*PodResponse, error)
+	GetPodStatus(ctx context.Context, in *PodEmpty, opts ...grpc.CallOption) (*PodResponse, error)
 }
 
 type podServiceClient struct {
@@ -29,9 +29,9 @@ func NewPodServiceClient(cc grpc.ClientConnInterface) PodServiceClient {
 	return &podServiceClient{cc}
 }
 
-func (c *podServiceClient) GetStatus(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*PodResponse, error) {
+func (c *podServiceClient) GetPodStatus(ctx context.Context, in *PodEmpty, opts ...grpc.CallOption) (*PodResponse, error) {
 	out := new(PodResponse)
-	err := c.cc.Invoke(ctx, "/proto.PodService/GetStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.PodService/GetPodStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (c *podServiceClient) GetStatus(ctx context.Context, in *Empty, opts ...grp
 // All implementations must embed UnimplementedPodServiceServer
 // for forward compatibility
 type PodServiceServer interface {
-	GetStatus(context.Context, *Empty) (*PodResponse, error)
+	GetPodStatus(context.Context, *PodEmpty) (*PodResponse, error)
 	mustEmbedUnimplementedPodServiceServer()
 }
 
@@ -50,8 +50,8 @@ type PodServiceServer interface {
 type UnimplementedPodServiceServer struct {
 }
 
-func (UnimplementedPodServiceServer) GetStatus(context.Context, *Empty) (*PodResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetStatus not implemented")
+func (UnimplementedPodServiceServer) GetPodStatus(context.Context, *PodEmpty) (*PodResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPodStatus not implemented")
 }
 func (UnimplementedPodServiceServer) mustEmbedUnimplementedPodServiceServer() {}
 
@@ -66,20 +66,20 @@ func RegisterPodServiceServer(s grpc.ServiceRegistrar, srv PodServiceServer) {
 	s.RegisterService(&PodService_ServiceDesc, srv)
 }
 
-func _PodService_GetStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+func _PodService_GetPodStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PodEmpty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PodServiceServer).GetStatus(ctx, in)
+		return srv.(PodServiceServer).GetPodStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.PodService/GetStatus",
+		FullMethod: "/proto.PodService/GetPodStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PodServiceServer).GetStatus(ctx, req.(*Empty))
+		return srv.(PodServiceServer).GetPodStatus(ctx, req.(*PodEmpty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -92,8 +92,8 @@ var PodService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*PodServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetStatus",
-			Handler:    _PodService_GetStatus_Handler,
+			MethodName: "GetPodStatus",
+			Handler:    _PodService_GetPodStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

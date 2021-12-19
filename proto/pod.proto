@@ -6,14 +6,14 @@ package proto;
 option go_package = "github.com/sanoyo/mini-lens-go/proto";
 
 service PodService {
-  rpc GetStatus(Empty) returns (PodResponse) {
+  rpc GetPodStatus(PodEmpty) returns (PodResponse) {
     option (google.api.http) = {
       get: "/pod"
     };
   }
 }
 
-message Empty {}
+message PodEmpty {}
 
 message PodResponse {
   string name = 1;
