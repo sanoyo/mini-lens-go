@@ -29,6 +29,7 @@ func newGateway(ctx context.Context, opts ...runtime.ServeMuxOption) (http.Handl
 	dialOpts := []grpc.DialOption{grpc.WithInsecure()}
 
 	err := pb.RegisterHealthServiceHandlerFromEndpoint(ctx, mux, endpoint, dialOpts)
+	err = pb.RegisterPodServiceHandlerFromEndpoint(ctx, mux, endpoint, dialOpts)
 	if err != nil {
 		return nil, err
 	}
